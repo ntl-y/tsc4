@@ -13,11 +13,34 @@
   1923063428480944139667114773918309212080528]
 -}
 
+tuple empty_tuple() asm "NIL";
+(int) tlen (tuple t) asm "TLEN";
+forall X -> (tuple) to_tuple (X x) asm "NOP";
+forall X -> tuple tpush(tuple t, X value) asm "TPUSH";
+
 () recv_internal() {
 }
 
 ;; testable
 (tuple) fibonacci_sequence (int n, int k) method_id {
-  return null();
-}
 
+  tuple fibonacci = to_tuple([0, 1]);
+  int count = 2;
+
+  int len = 0;  
+  while (count < (n + k)){
+    len = fibonacci.tlen();
+    
+    int next_fibonacci = ((fibonacci.at(len - 1)) + (fibonacci.at(len - 2)));
+    fibonacci~tpush(next_fibonacci);
+    count = count + 1;
+  }
+
+  tuple result = empty_tuple();
+  int i = n;
+  while (i < (n + k)){
+    result~tpush(fibonacci.at(i));
+    i = i + 1;
+  }
+  return result;
+}
