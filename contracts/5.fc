@@ -34,10 +34,12 @@ forall X -> tuple tpush(tuple t, X value) asm "TPUSH";
   int f1 = 1;
 
   int i = 0;
-  if (n + k > 368) { 
-    n + k = 369; 
+  int n+k = n + k;
+
+  if (n+k > 368) { 
+    n+k = 369; 
   }
-  repeat (n + k) {
+  repeat (n+k) {
     if (i >= n) { sequence~tpush(f0); }
     int next_num = f0 + f1;
     f0 = f1;
