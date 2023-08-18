@@ -8,6 +8,9 @@
 
 int slice_bits(slice s) asm "SBITS";
 
+() recv_internal() {
+}
+
 (int) slen(slice s) { return slice_bits(s) / 8;}
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
