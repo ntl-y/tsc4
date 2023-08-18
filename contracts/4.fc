@@ -15,7 +15,7 @@ int slice_bits(slice s) asm "SBITS";
 }
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-  slice string = text. begin_parse();
+  slice string = text.begin_parse();
   builder result = begin_cell();
   repeat (slen(string)) {
     int ch = string~load_uint(8);
