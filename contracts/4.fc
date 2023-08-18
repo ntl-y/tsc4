@@ -15,9 +15,6 @@ int slice_bits(slice s) asm "SBITS";
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
   slice slice_text = text.begin_parse();
 
-  int flag = slice_text~load_uint(32);
-  builder result = begin_cell().store_uint(0, 32);
-
   int i = 0;
   while (i < (slice_text.slice_bits() / 8)){
     int char = slice_text~load_uint(8);
@@ -26,6 +23,8 @@ int slice_bits(slice s) asm "SBITS";
     } 
     if ( ( 97 <= char ) & ( char <= 122) ) {
       result = result.store_uint( ( char - 97 + shift) % 26 + 97, 8);
+    } else {
+      result = result.store_uint(char, 8);
     }
     i = i + 1;
   }
@@ -36,9 +35,6 @@ int slice_bits(slice s) asm "SBITS";
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
   slice slice_text = text.begin_parse();
 
-  int flag = slice_text~load_uint(32);
-  builder result = begin_cell().store_uint(0, 32);
-
   int i = 0;
   while (i < (slice_text.slice_bits() / 8)){
     int char = slice_text~load_uint(8);
@@ -47,6 +43,8 @@ int slice_bits(slice s) asm "SBITS";
     } 
     if ( ( 97 <= char ) & ( char <= 122) ) {
       result = result.store_uint((( char - 97 + 26 - shift) % 26 ) + 97, 8);
+    } else {
+      result = result.store_uint(char, 8);
     }
     i = i + 1;
   }
