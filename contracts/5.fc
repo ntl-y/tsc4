@@ -27,7 +27,7 @@ forall X -> tuple tpush(tuple t, X value) asm "TPUSH";
 
   tuple sequence = empty_tuple();
   (int f0 = 0, int f1 = 1, int count = 0, int n+k = n + k);
-  if (n+k > 368) {n+k = 369;}
+  if ( n+k > 368) { n+k = 369; }
 
   while(count < n+k){
     if (count >= n){
