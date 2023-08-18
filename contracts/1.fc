@@ -5,11 +5,17 @@
   the subtree (branch) whose hash equals the received hash, the root cell of
   this branch should be returned. Return empty cell if the branch is not found.
 -}
+forall X -> int is_null (X x) asm "ISNULL";
 
 () recv_internal() {
 }
 
 ;; testable
 (cell) find_branch_by_hash(int hash, cell tree) method_id {
+
+  if (is_null(tree)){
+    return begin_cell().end_cell();
+  }
+
   return begin_cell().end_cell();
 }
