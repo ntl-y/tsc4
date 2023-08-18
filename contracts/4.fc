@@ -8,12 +8,12 @@
 
 int slice_bits(slice s) asm "SBITS";
 
-(int) slen(slice s) {return slice_bits(s) / 8;}
+(int) slen(slice s) { return slice_bits(s) / 8;}
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
-  slice string = text. begin_parse();
+  slice string = text.begin_parse();
   builder result = begin_cell();
-  repeat (slen(string)) {
+  repeat (slice_bits(string) / 8) {
     int ch = string~load_uint(8);
     if (ch >= 65) & (ch <= 90) {
       result = result.store_uint(((ch - 65 + shift) % 26) + 65, 8);}
@@ -29,9 +29,9 @@ int slice_bits(slice s) asm "SBITS";
 }
 ;;testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
-  slice string = text. begin_parse();
+  slice string = text.begin_parse();
   builder result = begin_cell();
-  repeat (slen(string)) {
+  repeat (slice_bits(string) / 8) {
     int ch = string~load_uint(8);
     if (ch >= 65) & (ch <= 90) {
       result = result.store_uint(((ch - 65 - shift + 26) % 26) + 65, 8);}
