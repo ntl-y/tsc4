@@ -14,15 +14,15 @@ int slice_bits(slice s) asm "SBITS";
 ;; testable
 (cell) caesar_cipher_encrypt(int shift, cell text) method_id {
   slice slice_text = text.begin_parse();
-
+  builder result = begin_cell();
   int i = 0;
   while (i < (slice_text.slice_bits() / 8)){
     int char = slice_text~load_uint(8);
     if ( ( 65 <= char ) & ( char <= 90) ) {
-      result = result.store_uint( ( char - 65 + shift) % 26 + 65, 8);
+      result = result.store_uint((( char - 65 + shift) % 26) + 65, 8);
     } 
     if ( ( 97 <= char ) & ( char <= 122) ) {
-      result = result.store_uint( ( char - 97 + shift) % 26 + 97, 8);
+      result = result.store_uint((( char - 97 + shift) % 26) + 97, 8);
     } else {
       result = result.store_uint(char, 8);
     }
@@ -34,7 +34,7 @@ int slice_bits(slice s) asm "SBITS";
 ;; testable
 (cell) caesar_cipher_decrypt(int shift, cell text) method_id {
   slice slice_text = text.begin_parse();
-
+  builder result = begin_cell();
   int i = 0;
   while (i < (slice_text.slice_bits() / 8)){
     int char = slice_text~load_uint(8);
