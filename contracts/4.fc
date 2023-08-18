@@ -16,8 +16,8 @@ int slice_bits(slice s) asm "SBITS";
   slice slice_text = text.begin_parse();
 
   builder result = begin_cell();
-  int i = 0;
-  while (i < (slice_text.slice_bits() / 8)){
+  
+  repeat(slice_text.slice_bits() / 8){
     int char = slice_text~load_uint(8);
     if (( 65 >= char ) & ( char <= 90)) {
       result = result.store_uint((( char - 65 + shift) % 26) + 65, 8);
@@ -26,7 +26,6 @@ int slice_bits(slice s) asm "SBITS";
     } else {
       result = result.store_uint(char, 8);
     }
-    i = i + 1;
   }
   if (slice_text.slice_refs()){
     return result.store_ref(caesar_cipher_encrypt(shift,slice_text~load_ref())).end_cell();
@@ -39,8 +38,8 @@ int slice_bits(slice s) asm "SBITS";
   slice slice_text = text.begin_parse();
 
   builder result = begin_cell();
-  int i = 0;
-  while (i < (slice_text.slice_bits() / 8)){
+  
+  repeat(slice_text.slice_bits() / 8){
     int char = slice_text~load_uint(8);
     if ( ( 65 >= char ) & ( char <= 90) ) {
       result = result.store_uint((( char - 65 + 26 - shift) % 26 ) + 65, 8);
@@ -49,7 +48,6 @@ int slice_bits(slice s) asm "SBITS";
     } else {
       result = result.store_uint(char, 8);
     }
-    i = i + 1;
   }
   if (slice_text.slice_refs()){
     return result.store_ref(caesar_cipher_decrypt(shift,slice_text~load_ref())).end_cell();
