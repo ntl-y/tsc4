@@ -14,7 +14,6 @@
 -}
 
 tuple empty_tuple() asm "NIL";
-forall X -> (tuple) to_tuple (X x) asm "NOP";
 forall X -> tuple tpush(tuple t, X value) asm "TPUSH";
 
 () recv_internal() {
@@ -25,8 +24,8 @@ forall X -> tuple tpush(tuple t, X value) asm "TPUSH";
   if (n < 0) | (k < 0) | (n + k > 371) | (n > 371) | (k > 255) {
     return empty_tuple();
   }
-  if (n == 0) & (k == 0) {
-    return to_tuple([0]);
+  if (k == 0) {
+    return empty_tuple();
   }
 
   tuple fib = empty_tuple();
